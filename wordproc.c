@@ -1,6 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+
+typedef struct word_table {
+	char **words;
+	int count;
+} word_table_t;
+
+long load_file(const char *filename, char *buffer, long maxLength);
+bool generate_word_table(word_table_t *destination, char *buffer, long length);
+
+int main(int argc, char *argv[]) {
+	long maxLength = 10000000;
+	char *buffer = (char *)calloc(maxLength, sizeof(char));
+
+	long length = load_file("wordsEn.txt", buffer, maxLength);
+
+	free(buffer);
+
+	return 0;
+}
 
 long load_file(const char *filename, char *buffer, long maxLength) {
 	if (!buffer || maxLength == 0) {
@@ -45,13 +65,24 @@ long load_file(const char *filename, char *buffer, long maxLength) {
 	return length;
 }
 
-int main(int argc, char *argv[]) {
-	long maxLength = 10000000;
-	char *buffer = (char *)calloc(maxLength, sizeof(char));
+bool generate_word_table(word_table_t *destination, char *buffer) {
+	int wordCount = 0;
+	long c = 0;
+	size_t length = strlen(buffer);
+	int currentWord = 0;
+	char *token;
 
-	long length = load_file("wordsEn.txt", buffer, maxLength);
+	for (c = 0; c < length; ++c) {
+		if (buffer[c] == '\0') {
+			++wordCount;
+		}
+	}
 
-	free(buffer);
+	destination->words = (char **)calloc(word_count, sizeof(char *));
 
-	return 0;
+	token = strtok(buffer, "\n");
+	while (token != NULL) {
+		size_t len = strlen(token) + 1;
+		destination->words[currentWord] = (char *)calloc(len, sizeof(char));
+		destination->words[curren
 }
