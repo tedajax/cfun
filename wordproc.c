@@ -46,7 +46,7 @@ long load_file(const char *filename, char *buffer, long maxLength) {
 }
 
 int main(int argc, char *argv[]) {
-	size_t maxLength = 10000000;
+	long maxLength = 10000000;
 	char *buffer = (char *)calloc(maxLength, sizeof(char));
 
 	long length = load_file("wordsEn.txt", buffer, maxLength);
